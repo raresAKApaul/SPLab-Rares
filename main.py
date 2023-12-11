@@ -33,9 +33,37 @@ class Paragraph(Element):
         super().__init__(text)
 
 
+class Picture:
+    def __init__(self, url):
+        self.url = url
+
+    def getsize(self, path, dim=None):
+        return dim
+
+    def getcontent(self, path, content=None ):
+        return content
+
+    def display(self):
+        pass
+
+
 class Image(Element):
     def __init__(self, url):
         super().__init__(url)
+
+    def display(self):
+        print(self)
+
+
+class ImageProxy(Picture):
+    def __init__(self, url):
+        self.url = super().__init__(url)
+        self.content = super().getcontent()
+
+    def loadImage(self):
+        if self.url is not None:
+            self.url = Image(self.url)
+        super().display()
 
 
 class Author:
