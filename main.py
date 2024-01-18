@@ -28,6 +28,7 @@ class TableOfContents(Element):
         super().__init__(content)
 
 
+
 class AlignmentStrategy:
     def align(self, text):
         pass
