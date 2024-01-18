@@ -28,19 +28,44 @@ class TableOfContents(Element):
         super().__init__(content)
 
 
+class AlignmentStrategy:
+    def align(self, text):
+        pass
+
+
+class LeftAlign(AlignmentStrategy):
+    def align(self, text):
+        return f"{text}"
+
+
+class RightAlign(AlignmentStrategy):
+    def align(self, text):
+        return f"{text.rjust(len(text) + 4)}"
+
+
 class Paragraph(Element):
-    def __init__(self, text):
+    def __init__(self, text, alignment_strategy=None):
         super().__init__(text)
+        self.text = None
+        self.alignment_strategy = alignment_strategy or LeftAlign()
+
+    def set_alignment_strategy(self, alignment_strategy):
+        self.alignment_strategy = alignment_strategy
+
+    def render(self):
+        aligned_text = self.alignment_strategy.align(self.text)
+        # Other rendering logic
+        return f"<p>{aligned_text}</p>"
 
 
 class Picture:
     def __init__(self, url):
         self.url = url
 
-    def getsize(self, path, dim=None):
+    def getsize(self, dim=None):
         return dim
 
-    def getcontent(self, path, content=None ):
+    def getcontent(self, content=None):
         return content
 
     def display(self):
